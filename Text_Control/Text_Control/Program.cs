@@ -11,58 +11,57 @@ namespace Text_Control
 {
     class Program
     {      
-        public static void Sentences(string row)
+        public static void SentSplit(string row)                      // разбиение на предложения
         {
             string[] Stext = row.Split('.', '!', '?');
 
             Console.WriteLine("Ваш текст, разбитый на предложения:");
 
             for (int i = 0; i < Stext.Length; i++)
-                Console.WriteLine(Stext[i]);
+                 Console.WriteLine(Stext[i]); 
         }
 
-        public static void Unics(string row,string[] Words)
+        public static void UnicsDefine(string row,string[] words)                   // уникальные слова текста
         {            
-            string[] compare = new string[Words.Length];
+            string[] compare = new string[words.Length];
             int kol = 0;
             Console.WriteLine("Уникальные слова из вашего текста:");
 
             if (true)
             {
-                for (int i = 0; i < Words.Length; i++)
+                for (int i = 0; i < words.Length; i++)
                 {
-                    compare[i] = Words[i + 1];
-                    Words[i + 1] = null;
+                    compare[i] = words[i + 1];
+                    words[i + 1] = null;
                 }
 
-                for (int i = 0; i < Words.Length; i++)
+                for (int i = 0; i < words.Length; i++)
                 {
-                    if (((compare[i] == Words[Words.Length - 1 - i]) ||
-                       (compare[i] == Words[i])) == false)
+                    if (((compare[i] == words[words.Length - 1 - i]) ||
+                       (compare[i] == words[i])) == false)
                     {
                         Console.WriteLine(compare[i]);
                         kol = kol++;
                     }
                 }
-
-                if (kol == 0)
+                if (kol > 0)
                     return;
             }
         }
 
-        public static void BiggestWords(string[] Words)
+        public static void TheBwordsDefine(string[] words)                // самое длинное слово в тексте (чет/нечет)
         {
             int max = 0;
             string remember = "ky";
             Console.WriteLine("Самое длинное слово (если в нем четное количество букв, " +
                               "то вы увидите вторую половину,иначе центральный символ станет '*')");
 
-            for (int i = 0; i < Words.Length; i++)
+            for (int i = 0; i < words.Length; i++)
             {
-                if (Words[i].Length > max)
+                if (words[i].Length > max)
                 {
-                    max = Words[i].Length;
-                    remember = Words[i];
+                    max = words[i].Length;
+                    remember = words[i];
                 }
             }
 
@@ -78,28 +77,35 @@ namespace Text_Control
                 string star = "*";
                 Console.WriteLine(brandnew = middle.Replace( middle , star));
             }
-        }        
+        }
+
+       /* public static void Print()
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.ReadKey();
+        }*/
 
         public static void Main(string[] args)
         {           
             Console.WriteLine("Введите произвольный текст:");
             string row = Console.ReadLine();
             Console.WriteLine();
-            string[] Words = row.Split(' ');
+            string[] words = row.Split(' ');
 
-            Console.WriteLine($"Количество знаков препинания в тексте:{row.Count(char.IsPunctuation)}");
+            Console.WriteLine($"Количество знаков препинания в тексте:{row.Count(char.IsPunctuation)}");   // колчество знаков препинания
             Console.WriteLine();
             Console.ReadKey();
 
-            Sentences(row);
+            SentSplit(row);
             Console.WriteLine();
             Console.ReadKey();
 
-            Unics(row,Words);
+            UnicsDefine(row,words);
             Console.WriteLine();
             Console.ReadKey();
 
-            BiggestWords(Words);
+            TheBwordsDefine(words);
             Console.ReadKey();
         }
     }
