@@ -1,1 +1,0 @@
-KAA-s_Wisdom
