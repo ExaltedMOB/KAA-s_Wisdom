@@ -31,8 +31,8 @@ namespace Text_Control
             {
                 for (int i = 0; i < words.Length; i++)
                 {
-                    compare[i] = words[i + 1];
-                    words[i + 1] = null;
+                    compare[i] = words[i + 1];          // у меня в методе UnicsDefine при компиляции вылазит ошибка мол не указанное исключение в этой строке (памагити пожалуйста)
+                    words[i + 1] = null;                
                 }
 
                 for (int i = 0; i < words.Length; i++)
@@ -78,10 +78,11 @@ namespace Text_Control
                 Console.WriteLine(brandnew = middle.Replace( middle , star));
             }
         }
-
+// хочу оптимизировать вывод чтобы не дублировать эти Writeline-ы в Main но не совсем понял фичу с return значений (+ как вернуть значения массива в методе SentSplit (памагити))
+// я разные источники облазил и до меня не доходит и народ мой толком объяснить не может а copy paste делать не хочу (хочу прокачаться)
        /* public static void Print()
         {
-            Console.WriteLine();
+            Console.WriteLine();                    
             Console.WriteLine();
             Console.ReadKey();
         }*/
