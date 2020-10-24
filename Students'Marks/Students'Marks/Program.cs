@@ -13,25 +13,25 @@ namespace Students_Marks
 
         static void Main(string[] args)
         {
-            string[][] shedule = AddStudentsQuantity();
-            InitializeTheList(shedule);
+            string[][] schedule = AddStudentsQuantity();
+            InitializeTheList(schedule);
         }
 
-        static void InitializeTheList(string[][] shedule)
+        static void InitializeTheList(string[][] schedule)
         {
             for (int i = 0; i < studentsQuantity; i++)
             {
                 Console.WriteLine("Tell student's name");
                 name = Console.ReadLine();
 
-                AddDisciplinesQuantity(shedule,i);
+                AddDisciplinesQuantity(schedule,i);
                 for (int j = 0; j < disciplinesQuantity; j++)
                 {
                     Console.WriteLine("Tell student's discipline");
                     discipline = Console.ReadLine();
 
-                    AddMarks(shedule,i,j);
-                    Console.WriteLine(GetAverageMark(shedule, i, j));
+                    AddMarks(schedule,i,j);
+                    Console.WriteLine(GetAverageMark(schedule, i, j));
                 }
             }
         }
@@ -40,35 +40,35 @@ namespace Students_Marks
         {
             Console.WriteLine("Tell the quantity of students");
             studentsQuantity = int.Parse(Console.ReadLine());
-            string[][] shedule = new string[studentsQuantity][];
-            return shedule;
+            string[][] schedule = new string[studentsQuantity][];
+            return schedule;
         }
 
-        static void AddDisciplinesQuantity(string[][] shedule,int i)
+        static void AddDisciplinesQuantity(string[][] schedule,int i)
         {
             Console.WriteLine("Tell the quantity of the student's disciplines");
             disciplinesQuantity = int.Parse(Console.ReadLine());
-            shedule[i] = new string[disciplinesQuantity];
+            schedule[i] = new string[disciplinesQuantity];
         }
 
-        static void AddMarks(string[][] shedule,int i,int j)
+        static void AddMarks(string[][] schedule,int i,int j)
         {
             Console.WriteLine("Tell the student's discipline's marks");
             marks = Console.ReadLine();
-            shedule[i][j] = marks;
+            schedule[i][j] = marks;
         }
         
-        static double GetAverageMark(string[][] shedule,int i, int j)
+        static double GetAverageMark(string[][] schedule,int i, int j)
         {
             int summ = 0, count = 0, number = 0;
             double result = 0;
 
-            foreach (char e in shedule[i][j])
-                shedule[i][j] = shedule[i][j].Replace(" ", null);
+            foreach (char e in schedule[i][j])
+                schedule[i][j] = schedule[i][j].Replace(" ", null);
 
-            for (int s = 0; s < shedule[i][j].Length; s++)
+            for (int s = 0; s < schedule[i][j].Length; s++)
             {
-                number = Convert.ToInt32((shedule[i][j])[s]);
+                number = Convert.ToInt32((schedule[i][j])[s]);
                 summ += number-48;
                 count++;
             }
