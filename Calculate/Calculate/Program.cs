@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Calculate
 {
-    /*class Program
+    class Program
     {
         enum RomanNumbers: int
         {
@@ -35,9 +35,6 @@ namespace Calculate
 
             PrintTheConvertedArray(BuildRomanStyle(dividedArray));
 
-            Console.ReadKey(true);
-
-
             //Console.WriteLine((int)RomanNumbers.X);
         }
 
@@ -62,7 +59,7 @@ namespace Calculate
                     }
                 }
             }
-            return dividedArray;
+            return dividedArray; 
         }
         
         static char[] BuildRomanStyle(char[] dividedArray)
@@ -102,61 +99,5 @@ namespace Calculate
             foreach (char value in dividedArray)
                 Console.Write(value);
         }
-    }*/
-
-
-
-
-
-
-
-
-    public static class RomanNumerals
-    {
-        //static string Input(string s)
-        //{
-        //    Console.WriteLine("Give me the number I will decode it into Roman");
-        //    return Console.ReadLine();
-        //}
-
-
-        private static readonly Dictionary<char, int> romanDigits =
-        new Dictionary<char, int> 
-        {
-            { 'I', 1 },
-            { 'V', 5 },
-            { 'X', 10 },
-            { 'L', 50 },
-            { 'C', 100 },
-            { 'D', 500 },
-            { 'M', 1000 }
-        };
-
-        public static int Decode(string s)
-        {
-            int total = 0;
-            int prev = 0;
-            foreach (char c in s)
-            {
-                int curr = romanDigits[c];
-                total += curr < prev ? -curr : curr;
-                prev = curr;
-            }
-            return total;
-        }
     }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            foreach (string s in args)
-            {
-                Console.WriteLine(RomanNumerals.Decode(s));
-            }
-        }
-    }
-
-
-
 }
