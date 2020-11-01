@@ -63,7 +63,7 @@ namespace Array_sJob
             return array2D;
         }
 
-        static bool CheckAndFillArray(int arrayLength, int arrayWidth, int[] array1D, int[,] array2D)
+        static bool CheckAndFillArray(int arrayLength, int arrayWidth,ref int[] array1D,ref int[,] array2D)
         {
             if (DefineArrayRank() == 1)
             {
@@ -87,7 +87,7 @@ namespace Array_sJob
             Console.WriteLine("Create the main_array");
             Console.WriteLine();
 
-            if (CheckAndFillArray(arrayLength, arrayWidth, array1D, array2D))
+            if (CheckAndFillArray(arrayLength, arrayWidth,ref array1D,ref array2D))
                 arrayMain1D = array1D;
             else
                 arrayMain2D = array2D;
@@ -100,7 +100,7 @@ namespace Array_sJob
             Console.WriteLine("Create the sub_array");
             Console.WriteLine();
 
-            if (CheckAndFillArray(arrayLength, arrayWidth, array1D, array2D))
+            if (CheckAndFillArray(arrayLength, arrayWidth,ref array1D,ref array2D))
                 subArray1D = array1D;
             else
                 subArray2D = array2D;
