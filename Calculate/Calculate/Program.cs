@@ -5,7 +5,7 @@ namespace Calculate
 {
     class Program
     {
-        enum RomanNumbers: int
+        enum RomanNumbers : int
         {
             I = 1,
             V = 5,
@@ -25,7 +25,7 @@ namespace Calculate
         const char thousand = 'M';
 
         static void Main(string[] args)
-        { 
+        {
             int number = int.Parse(ReadTheNumber());
 
             string numberString = Convert.ToString(number);
@@ -51,7 +51,7 @@ namespace Calculate
             {
                 for (int i = 0; i < numberString.Length; i++)
                 {
-                    if (((number % 10) % 5 == 0)  ||  ((number % 10) == 1))
+                    if (((number % 10) % 5 == 0) || ((number % 10) == 1))
                     {
                         dividedArray[numberString.Length - i - 1] = Convert.ToChar((number % 10) * rank);
                         rank *= 10;
@@ -59,9 +59,9 @@ namespace Calculate
                     }
                 }
             }
-            return dividedArray; 
+            return dividedArray;
         }
-        
+
         static char[] BuildRomanStyle(char[] dividedArray)
         {
             for (int s = 0; s < dividedArray.Length; s++)
@@ -89,11 +89,36 @@ namespace Calculate
                     case 1000:
                         dividedArray[s] = thousand;
                         break;
+                    default:
+                        ConvertTheIrregulars(dividedArray);
+                        break;
                 }
             }
             return dividedArray;
         }
-        
+
+        static char[] ConvertTheIrregulars(char[] dividedArray)
+        {   
+            for (int i = 0; i < dividedArray.Length; i++)
+            {
+                if (Convert.ToInt32(dividedArray[i]) < 4) 
+                {
+                    var count = 0;
+                    char temp = ' ';
+
+                    while (Convert.ToInt32(dividedArray[i]) != count)
+                    {
+                        temp += one;
+                        count++;
+                    }
+
+                    dividedArray[i] = temp;
+                }
+            }
+
+            return dividedArray;
+        }
+
         static void PrintTheConvertedArray(char[] dividedArray)
         {
             foreach (char value in dividedArray)
