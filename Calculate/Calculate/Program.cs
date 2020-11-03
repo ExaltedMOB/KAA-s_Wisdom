@@ -1,128 +1,114 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Calculate
 {
     class Program
     {
-        enum RomanNumbers : int
-        {
-            I = 1,
-            V = 5,
-            X = 10,
-            L = 50,
-            C = 100,
-            D = 500,
-            M = 1000
-        }
-
-        const char one = 'I';
-        const char five = 'V';
-        const char ten = 'X';
-        const char fifty = 'L';
-        const char oneHundred = 'C';
-        const char fiveHundred = 'D';
-        const char thousand = 'M';
-
         static void Main(string[] args)
         {
-            int number = int.Parse(ReadTheNumber());
+            char one = 'I';
+            char five = 'V';
+            char ten = 'X';
+            char fifty = 'L';
+            char oneHundred = 'C';
+            char fiveHundred = 'D';
+            char thousand = 'M';
+            char fiveThousand = 'F';
+            char tenThousand = 'T';
 
-            string numberString = Convert.ToString(number);
-            char[] dividedArray = new char[numberString.Length];
+            var increment = 1;
+            var index = 0;
 
-            dividedArray = DivideTheNumber(number, numberString, dividedArray);
+            string number = ReadTheNumber();
+            string[] convertedArray = new string[number.Length];
 
-            PrintTheConvertedArray(BuildRomanStyle(dividedArray));
+            if (int.TryParse(number, out int result))
+                PrintTheConvertedArray(BuildTheRomanNumber(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
+            else
+                Console.Write(ConvertBack(number, increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
 
-            //Console.WriteLine((int)RomanNumbers.X);
+            Console.ReadKey();
         }
 
         static string ReadTheNumber()
         {
-            Console.WriteLine("Give me the number to convert it to the Roman_Style");
+            Console.WriteLine("'F' will represent 5000 and 'T' will stand for 10000");
+            Console.WriteLine("Let's convert a number to Roman style or vice versa!");
             return Console.ReadLine();
         }
-
-        static char[] DivideTheNumber(int number, string numberString, char[] dividedArray)
+        
+        static string ConvertASymbol(string number, string[] convertedArray, char situationalOne, char situationalFive, char situationalTen, int index)
         {
-            int rank = 1;
-            while (number != 0)
+            if ((Convert.ToInt32(Convert.ToString(number[index])) > 0) && (Convert.ToInt32(Convert.ToString(number[index])) < 4))           // from 1 to 3
             {
-                for (int i = 0; i < numberString.Length; i++)
-                {
-                    if (((number % 10) % 5 == 0) || ((number % 10) == 1))
-                    {
-                        dividedArray[numberString.Length - i - 1] = Convert.ToChar((number % 10) * rank);
-                        rank *= 10;
-                        number /= 10;
-                    }
-                }
+                for (int i = 0; i < Convert.ToInt32(Convert.ToString(number[index])); i++)
+                    convertedArray[index] += situationalOne;
             }
-            return dividedArray;
+            else if (Convert.ToInt32(Convert.ToString(number[index])) == 4)                   // 4
+                convertedArray[index] = situationalOne + situationalFive.ToString();
+            else if (Convert.ToInt32(Convert.ToString(number[index])) == 5)                   // 5
+                convertedArray[index] = situationalFive.ToString();
+            else if ((Convert.ToInt32(Convert.ToString(number[index])) > 5) && (Convert.ToInt32(Convert.ToString(number[index])) < 9))              // from 6 to 8
+            {
+                convertedArray[index] = situationalFive.ToString();
+                for (int k = 0; k < Convert.ToInt32(Convert.ToString(number[index])) - 5; k++)
+                    convertedArray[index] += situationalOne;
+            }
+            else if (Convert.ToInt32(Convert.ToString(number[index])) == 9)                   // 9
+                convertedArray[index] = situationalOne + situationalTen.ToString();
+            else if (Convert.ToInt32(Convert.ToString(number[index])) == 0)                       // empty case : just roll over
+                return convertedArray[index];
+            return convertedArray[index];
         }
 
-        static char[] BuildRomanStyle(char[] dividedArray)
-        {
-            for (int s = 0; s < dividedArray.Length; s++)
+        static string[] BuildTheRomanNumber(string number, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
+        { 
+            switch (number.Length)
             {
-                switch (Convert.ToInt32(dividedArray[s]))
-                {
-                    case 1:
-                        dividedArray[s] = one;
-                        break;
-                    case 5:
-                        dividedArray[s] = five;
-                        break;
-                    case 10:
-                        dividedArray[s] = ten;
-                        break;
-                    case 50:
-                        dividedArray[s] = fifty;
-                        break;
-                    case 100:
-                        dividedArray[s] = oneHundred;
-                        break;
-                    case 500:
-                        dividedArray[s] = fiveHundred;
-                        break;
-                    case 1000:
-                        dividedArray[s] = thousand;
-                        break;
-                    default:
-                        ConvertTheIrregulars(dividedArray);
-                        break;
-                }
+                case 1:
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    break;
+                case 2:
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, ten, fifty, oneHundred, index);
+                    index = 1;
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    break;
+                case 3:
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, oneHundred, fiveHundred, thousand, index);
+                    index = 1;
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, ten, fifty, oneHundred, index);
+                    index = 2;
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    break;
+                case 4:
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, thousand, fiveThousand, tenThousand, index);
+                    index = 1;
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, oneHundred, fiveHundred, thousand, index);
+                    index = 2;
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, ten, fifty, oneHundred, index);
+                    index = 3;
+                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    break;
             }
-            return dividedArray;
+            return convertedArray;
         }
 
-        static char[] ConvertTheIrregulars(char[] dividedArray)
-        {   
-            for (int i = 0; i < dividedArray.Length; i++)
-            {
-                if (Convert.ToInt32(dividedArray[i]) < 4) 
-                {
-                    var count = 0;
-                    char temp = ' ';
-
-                    while (Convert.ToInt32(dividedArray[i]) != count)
-                    {
-                        temp += one;
-                        count++;
-                    }
-
-                    dividedArray[i] = temp;
-                }
-            }
-
-            return dividedArray;
-        }
-
-        static void PrintTheConvertedArray(char[] dividedArray)
+        static void PrintTheConvertedArray(string[] convertedArray)
         {
-            foreach (char value in dividedArray)
+            foreach (string value in convertedArray)
                 Console.Write(value);
+        }
+
+        static int ConvertBack(string number, int increment, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
+        {
+            while(BuildTheRomanNumber(Convert.ToString(increment), convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index).ToString() != number)
+            {
+                increment++;
+            }
+            return increment;
         }
     }
 }
