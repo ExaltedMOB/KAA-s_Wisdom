@@ -19,7 +19,7 @@ namespace Calculate
             char fiveThousand = 'F';
             char tenThousand = 'T';
 
-            var increment = 1;
+            var increment = "1";
             var index = 0;
 
             string number = ReadTheNumber();
@@ -28,7 +28,7 @@ namespace Calculate
             if (int.TryParse(number, out int result))
                 PrintTheConvertedArray(BuildTheRomanNumber(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
             else
-                Console.Write(ConvertBack(number, increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
+                Console.Write(ConvertBack(increment, number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
 
             Console.ReadKey();
         }
@@ -40,57 +40,57 @@ namespace Calculate
             return Console.ReadLine();
         }
         
-        static string ConvertASymbol(string number, string[] convertedArray, char situationalOne, char situationalFive, char situationalTen, int index)
+        static string ConvertASymbol(string input, string[] convertedArray, char situationalOne, char situationalFive, char situationalTen, int index)
         {
-            if ((Convert.ToInt32(Convert.ToString(number[index])) > 0) && (Convert.ToInt32(Convert.ToString(number[index])) < 4))           // from 1 to 3
+            if ((Convert.ToInt32(Convert.ToString(input[index])) > 0) && (Convert.ToInt32(Convert.ToString(input[index])) < 4))           // from 1 to 3
             {
-                for (int i = 0; i < Convert.ToInt32(Convert.ToString(number[index])); i++)
+                for (int i = 0; i < Convert.ToInt32(Convert.ToString(input[index])); i++)
                     convertedArray[index] += situationalOne;
             }
-            else if (Convert.ToInt32(Convert.ToString(number[index])) == 4)                   // 4
+            else if (Convert.ToInt32(Convert.ToString(input[index])) == 4)                   // 4
                 convertedArray[index] = situationalOne + situationalFive.ToString();
-            else if (Convert.ToInt32(Convert.ToString(number[index])) == 5)                   // 5
+            else if (Convert.ToInt32(Convert.ToString(input[index])) == 5)                   // 5
                 convertedArray[index] = situationalFive.ToString();
-            else if ((Convert.ToInt32(Convert.ToString(number[index])) > 5) && (Convert.ToInt32(Convert.ToString(number[index])) < 9))              // from 6 to 8
+            else if ((Convert.ToInt32(Convert.ToString(input[index])) > 5) && (Convert.ToInt32(Convert.ToString(input[index])) < 9))              // from 6 to 8
             {
                 convertedArray[index] = situationalFive.ToString();
-                for (int k = 0; k < Convert.ToInt32(Convert.ToString(number[index])) - 5; k++)
+                for (int k = 0; k < Convert.ToInt32(Convert.ToString(input[index])) - 5; k++)
                     convertedArray[index] += situationalOne;
             }
-            else if (Convert.ToInt32(Convert.ToString(number[index])) == 9)                   // 9
+            else if (Convert.ToInt32(Convert.ToString(input[index])) == 9)                   // 9
                 convertedArray[index] = situationalOne + situationalTen.ToString();
-            else if (Convert.ToInt32(Convert.ToString(number[index])) == 0)                       // empty case : just roll over
+            else if (Convert.ToInt32(Convert.ToString(input[index])) == 0)                       // empty case : just roll over
                 return convertedArray[index];
             return convertedArray[index];
         }
 
-        static string[] BuildTheRomanNumber(string number, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
+        static string[] BuildTheRomanNumber(string inputnumber, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
         { 
-            switch (number.Length)
+            switch (inputnumber.Length)
             {
                 case 1:
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, one, five, ten, index);
                     break;
                 case 2:
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, ten, fifty, oneHundred, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, ten, fifty, oneHundred, index);
                     index = 1;
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, one, five, ten, index);
                     break;
                 case 3:
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, oneHundred, fiveHundred, thousand, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, oneHundred, fiveHundred, thousand, index);
                     index = 1;
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, ten, fifty, oneHundred, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, ten, fifty, oneHundred, index);
                     index = 2;
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, one, five, ten, index);
                     break;
                 case 4:
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, thousand, fiveThousand, tenThousand, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, thousand, fiveThousand, tenThousand, index);
                     index = 1;
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, oneHundred, fiveHundred, thousand, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, oneHundred, fiveHundred, thousand, index);
                     index = 2;
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, ten, fifty, oneHundred, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, ten, fifty, oneHundred, index);
                     index = 3;
-                    convertedArray[index] = ConvertASymbol(number, convertedArray, one, five, ten, index);
+                    convertedArray[index] = ConvertASymbol(inputnumber, convertedArray, one, five, ten, index);
                     break;
             }
             return convertedArray;
@@ -102,11 +102,26 @@ namespace Calculate
                 Console.Write(value);
         }
 
-        static int ConvertBack(string number, int increment, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
+        static string BuildStringFromArray(string increment, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
         {
-            while(BuildTheRomanNumber(Convert.ToString(increment), convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index).ToString() != number)
+            string rowArray = "";
+            string[] temp = BuildTheRomanNumber(increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index);
+            for (int i = 0; i < temp.Length; i++)
+                rowArray += temp[i];
+            return rowArray;
+        }
+
+        static string ConvertBack(string increment, string number, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
+        {
+            bool check = false;
+            while (check != true)
             {
-                increment++;
+                if (BuildStringFromArray(increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index) != number)
+                    increment = Convert.ToString(int.Parse(increment) + 1);
+                else
+                {
+                    return increment;
+                }
             }
             return increment;
         }
