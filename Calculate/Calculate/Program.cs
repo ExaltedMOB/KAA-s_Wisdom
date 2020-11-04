@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Calculate
 {
@@ -19,25 +20,42 @@ namespace Calculate
             char fiveThousand = 'F';
             char tenThousand = 'T';
 
-            var increment = "1";
+            var row = "";
+            var number = AproveTheNumber(row);
             var index = 0;
 
-            string number = ReadTheNumber();
             string[] convertedArray = new string[number.Length];
 
-            if (int.TryParse(number, out int result))
-                PrintTheConvertedArray(BuildTheRomanNumber(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
+            Console.WriteLine("Now let us convert it to Roman style :");
+            Console.WriteLine();
+
+            if (int.Parse(number) == 0)
+                Console.WriteLine("Nulla");
             else
-                Console.Write(ConvertBack(increment, number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
+                PrintTheConvertedArray(BuildTheRomanNumber(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
 
             Console.ReadKey();
         }
 
         static string ReadTheNumber()
         {
-            Console.WriteLine("'F' will represent 5000 and 'T' will stand for 10000");
-            Console.WriteLine("Let's convert a number to Roman style or vice versa!");
             return Console.ReadLine();
+        }
+
+        static string AproveTheNumber(string row)
+        {
+            while (true)
+            {
+                Console.WriteLine("Insert the number : ");
+                row = ReadTheNumber();
+                Console.Clear();
+
+                if (int.TryParse(row, out int result))
+                    break;
+                else
+                    Console.WriteLine("Insert the number correctly!");
+            }
+            return row;
         }
         
         static string ConvertASymbol(string input, string[] convertedArray, char situationalOne, char situationalFive, char situationalTen, int index)
@@ -99,31 +117,10 @@ namespace Calculate
         static void PrintTheConvertedArray(string[] convertedArray)
         {
             foreach (string value in convertedArray)
-                Console.Write(value);
-        }
-
-        static string BuildStringFromArray(string increment, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
-        {
-            string rowArray = "";
-            string[] temp = BuildTheRomanNumber(increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index);
-            for (int i = 0; i < temp.Length; i++)
-                rowArray += temp[i];
-            return rowArray;
-        }
-
-        static string ConvertBack(string increment, string number, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
-        {
-            bool check = false;
-            while (check != true)
             {
-                if (BuildStringFromArray(increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index) != number)
-                    increment = Convert.ToString(int.Parse(increment) + 1);
-                else
-                {
-                    return increment;
-                }
+                Thread.Sleep(70);
+                Console.Write(value);
             }
-            return increment;
         }
     }
 }
