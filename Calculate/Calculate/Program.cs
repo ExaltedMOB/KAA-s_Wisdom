@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Calculate
 {
     class Program
     {
+        //public static int converted = 0;
+
         static void Main(string[] args)
         {
             char one = 'I';
@@ -19,7 +22,7 @@ namespace Calculate
             char fiveThousand = 'F';
             char tenThousand = 'T';
 
-            var increment = "1";
+            
             var index = 0;
 
             string number = ReadTheNumber();
@@ -27,15 +30,15 @@ namespace Calculate
 
             if (int.TryParse(number, out int result))
                 PrintTheConvertedArray(BuildTheRomanNumber(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
-            else
-                Console.Write(ConvertBack(increment, number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
+            //else
+            //    Console.WriteLine(ConvertBack(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
 
             Console.ReadKey();
         }
 
         static string ReadTheNumber()
         {
-            Console.WriteLine("'F' will represent 5000 and 'T' will stand for 10000");
+            Console.WriteLine("'F' represents 5000 and 'T' stands for 10000");
             Console.WriteLine("Let's convert a number to Roman style or vice versa!");
             return Console.ReadLine();
         }
@@ -102,28 +105,23 @@ namespace Calculate
                 Console.Write(value);
         }
 
-        static string BuildStringFromArray(string increment, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
-        {
-            string rowArray = "";
-            string[] temp = BuildTheRomanNumber(increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index);
-            for (int i = 0; i < temp.Length; i++)
-                rowArray += temp[i];
-            return rowArray;
-        }
+        //static string ConvertBack(string number, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
+        //{
+        //    for (converted = 1; ; converted++)
+        //    {
+        //        if (BuildStringFromArray(convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index) == number)
+        //            break;
+        //    }
+        //    return Convert.ToString(converted);
+        //}
 
-        static string ConvertBack(string increment, string number, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
-        {
-            bool check = false;
-            while (check != true)
-            {
-                if (BuildStringFromArray(increment, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index) != number)
-                    increment = Convert.ToString(int.Parse(increment) + 1);
-                else
-                {
-                    return increment;
-                }
-            }
-            return increment;
-        }
+        //static string BuildStringFromArray(string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
+        //{
+        //    string rowArray = "";
+        //    string[] temp = BuildTheRomanNumber(Convert.ToString(converted), convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index);
+        //    for (int i = 0; i < temp.Length; i++)
+        //        rowArray += temp[i];
+        //    return rowArray;
+        //}
     }
 }
