@@ -8,6 +8,8 @@ namespace Calculate
 {
     class Program
     {
+        //public static int converted = 0;
+
         static void Main(string[] args)
         {
             char one = 'I';
@@ -39,6 +41,8 @@ namespace Calculate
 
         static string ReadTheNumber()
         {
+            Console.WriteLine("'F' will represent 5000 and 'T' will stand for 10000");
+            Console.WriteLine("Let's convert a number to Roman style or vice versa!");
             return Console.ReadLine();
         }
 
