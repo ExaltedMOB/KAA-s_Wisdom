@@ -28,6 +28,7 @@ namespace Calculate
 
             string[] convertedArray = new string[number.Length];
 
+            Console.WriteLine("('F' will represent 5000 and 'T' will stand for 10000)");
             Console.WriteLine("Now let us convert it to Roman style :");
             Console.WriteLine();
 
@@ -43,8 +44,6 @@ namespace Calculate
 
         static string ReadTheNumber()
         {
-            Console.WriteLine("'F' will represent 5000 and 'T' will stand for 10000");
-            Console.WriteLine("Let's convert a number to Roman style or vice versa!");
             return Console.ReadLine();
         }
 
