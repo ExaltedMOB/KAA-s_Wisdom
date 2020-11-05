@@ -34,8 +34,10 @@ namespace Calculate
             if (int.Parse(number) == 0)
                 Console.WriteLine("Nulla");
             else
+            {
+                Console.WriteLine($"Number {number} converted to Roman is :");
                 PrintTheConvertedArray(BuildTheRomanNumber(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
-
+            }
             Console.ReadKey();
         }
 
