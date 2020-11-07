@@ -22,25 +22,43 @@ namespace Calculate
             char fiveThousand = 'F';
             char tenThousand = 'T';
 
-            
+            var row = "";
+            var number = AproveTheNumber(row);
             var index = 0;
 
-            string number = ReadTheNumber();
             string[] convertedArray = new string[number.Length];
 
-            if (int.TryParse(number, out int result))
+            Console.WriteLine("('F' will represent 5000 and 'T' will stand for 10000)");
+            Console.WriteLine("Now let us convert it to Roman style :");
+            Console.WriteLine();
+
+            if (int.Parse(number) == 0)
+                Console.WriteLine("Nulla");
+            else
                 PrintTheConvertedArray(BuildTheRomanNumber(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
-            //else
-            //    Console.WriteLine(ConvertBack(number, convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index));
 
             Console.ReadKey();
         }
 
         static string ReadTheNumber()
         {
-            Console.WriteLine("'F' represents 5000 and 'T' stands for 10000");
-            Console.WriteLine("Let's convert a number to Roman style or vice versa!");
             return Console.ReadLine();
+        }
+
+        static string AproveTheNumber(string row)
+        {
+            while (true)
+            {
+                Console.WriteLine("Insert the number : ");
+                row = ReadTheNumber();
+                Console.Clear();
+
+                if (int.TryParse(row, out int result))
+                    break;
+                else
+                    Console.WriteLine("Insert the number correctly!");
+            }
+            return row;
         }
         
         static string ConvertASymbol(string input, string[] convertedArray, char situationalOne, char situationalFive, char situationalTen, int index)
@@ -102,26 +120,10 @@ namespace Calculate
         static void PrintTheConvertedArray(string[] convertedArray)
         {
             foreach (string value in convertedArray)
+            {
+                Thread.Sleep(70);
                 Console.Write(value);
+            }
         }
-
-        //static string ConvertBack(string number, string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
-        //{
-        //    for (converted = 1; ; converted++)
-        //    {
-        //        if (BuildStringFromArray(convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index) == number)
-        //            break;
-        //    }
-        //    return Convert.ToString(converted);
-        //}
-
-        //static string BuildStringFromArray(string[] convertedArray, char one, char five, char ten, char fifty, char oneHundred, char fiveHundred, char thousand, char fiveThousand, char tenThousand, int index)
-        //{
-        //    string rowArray = "";
-        //    string[] temp = BuildTheRomanNumber(Convert.ToString(converted), convertedArray, one, five, ten, fifty, oneHundred, fiveHundred, thousand, fiveThousand, tenThousand, index);
-        //    for (int i = 0; i < temp.Length; i++)
-        //        rowArray += temp[i];
-        //    return rowArray;
-        //}
     }
 }
