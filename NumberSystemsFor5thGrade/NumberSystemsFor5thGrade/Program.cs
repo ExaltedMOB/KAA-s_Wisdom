@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
+using System.Security;
 using System.Threading;
 
 namespace Calculate
@@ -7,8 +9,10 @@ namespace Calculate
     class Program
     {
         static void Main(string[] args)
-        {
+        {   
             string symbols = "IVXLCDMFT";
+            string[] equalties = new string[9] { "1", "5", "10", "50", "100", "500", "1000", "5000", "10000" };
+
             char[] alphabet = new char[symbols.Length];
             alphabet = symbols.ToCharArray();
 
@@ -22,7 +26,7 @@ namespace Calculate
                     ChooseCaseSystems(row);
                     break;
                 case 2:                                                                                                   //case Roman_Numbers
-                    ChooseCaseRoman(row, alphabet, index);
+                    ChooseCaseRoman(row, alphabet, index, equalties);
                     break;
                 case 3:                                                                                                  //case Real_Numbers
                     Console.WriteLine("NOT YET DONE");
@@ -47,15 +51,27 @@ namespace Calculate
             Console.ReadKey();
         }
 
-        static void ChooseCaseRoman(string row,char[] alphabet,int index)
+        static void ChooseCaseRoman(string row,char[] alphabet,int index,string[] equalties)
         {
             var number = AproveTheNumber(row);
 
             string[] convertedArray = new string[number.Length];
 
-            Console.WriteLine("('F' will represent 5000 and 'T' will stand for 10000)");
-            Console.WriteLine("Now let us convert it to Roman style :");
+            var k = 0;
+            for (int i = 0; i < alphabet.Length; i++)
+            {
+                Console.WriteLine($"{alphabet[i]} --- {equalties[k]}");
+                k++;
+            }
+
             Console.WriteLine();
+            Console.WriteLine($"Now let us convert {number} to Roman style :");
+            Console.WriteLine();
+            Console.WriteLine("If the left standing number='Left' is less than the dexter one='Right'\r\n" +
+                "than we should do the subtraction: 'Right'-'Left', else summ them\r\n" +
+                "If you encounter the row of equal symbols also do the summ");
+            Console.WriteLine();
+
 
             if (int.Parse(number) == 0)
                 Console.WriteLine("Nulla");
@@ -164,7 +180,7 @@ namespace Calculate
         {
             foreach (string value in convertedArray)
             {
-                Thread.Sleep(70);
+                Thread.Sleep(400);
                 Console.Write(value);
             }
         }
