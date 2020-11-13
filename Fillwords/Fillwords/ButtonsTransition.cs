@@ -11,7 +11,7 @@ namespace Fillwords
             switch (Program.location)
             {
                 case 0:
-                    Console.WriteLine("NOT DONE YET");
+                    ButtonsContains.ExploreTheNewGame();
                     break;
                 case 1:
                     Console.WriteLine("NOT DONE YET");
