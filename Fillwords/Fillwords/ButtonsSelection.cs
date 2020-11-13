@@ -6,9 +6,7 @@ namespace Fillwords
     {
         public static int SwitchTheButton()
         {
-            var location = 0;
-
-            Menu.PrintTheHighlightedButton(location);
+            Menu.PrintTheHighlightedButton();
 
             var pressedKey = ConsoleKey.Z;
 
@@ -18,34 +16,34 @@ namespace Fillwords
 
                 if ((pressedKey == ConsoleKey.DownArrow) || (pressedKey == ConsoleKey.S))
                 {
-                    if(location == 3)
+                    if(Program.location == 3)
                     {
                         Menu.PrintTheTitle();
-                        Menu.PrintTheHighlightedButton(location);
+                        Menu.PrintTheHighlightedButton();
                     }
                     else
                     {
                         Menu.PrintTheTitle();
-                        location++;
-                        Menu.PrintTheHighlightedButton(location);
+                        Program.location++;
+                        Menu.PrintTheHighlightedButton();
                     }
                 }
                 else if ((pressedKey == ConsoleKey.UpArrow) || (pressedKey == ConsoleKey.W))
                 {
-                    if(location == 0)
+                    if(Program.location == 0)
                     {
                         Menu.PrintTheTitle();
-                        Menu.PrintTheHighlightedButton(location);
+                        Menu.PrintTheHighlightedButton();
                     }
                     else
                     {
                         Menu.PrintTheTitle();
-                        location--;
-                        Menu.PrintTheHighlightedButton(location);
+                        Program.location--;
+                        Menu.PrintTheHighlightedButton();
                     }
                 }
             }
-            return location;
+            return Program.location;
         }
 
         public static ConsoleKey PressTHeKey()

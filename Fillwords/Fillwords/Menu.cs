@@ -41,13 +41,13 @@ namespace Fillwords
             }
         }
 
-        public static void PrintTheHighlightedButton(int location)
+        public static void PrintTheHighlightedButton()
         {
             var k = 5;
             for (int i = 0; i < 4; i++)
             {
                 Console.SetCursorPosition(32, k);
-                if (location == i)
+                if (Program.location == i)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(common[0].buttons[i]);
