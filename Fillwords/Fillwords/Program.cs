@@ -8,17 +8,10 @@ namespace Fillwords
 
         public static void Main(string[] args)
         {
-            PrintTheMenu();
-            ButtonsSelection.SwitchTheButton();
-            ButtonsTransition.JumpToTheCurrentButton();
+            Print.PrintTheMenu();
+            LogicPatterns.SwitchTheButton();
+            LogicPatterns.JumpToTheCurrentButton();
             Console.ReadKey();
-        }
-
-        public static void PrintTheMenu()
-        {
-            Menu.PrintTheTitle();
-            Menu.FillTheButtons();
-            Menu.PrintTheButtons();
         }
     }
 }

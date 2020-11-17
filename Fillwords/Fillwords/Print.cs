@@ -2,11 +2,9 @@
 
 namespace Fillwords
 {
-    public class Menu
+    public class Print
     {
         public string[] buttons;
-
-        public static Menu[] common;
 
         public static void PrintTheTitle()
         {
@@ -15,19 +13,11 @@ namespace Fillwords
             Console.WriteLine("<<FILLWORDS>>");
         }
 
-        public static void FillTheButtons()
+        public static void PrintTheMenu()
         {
-            common = new[]
-            {
-                new Menu
-                {
-                    buttons = new string[4]{
-                        "New Game",
-                        "Resume",
-                        "High Score",
-                        "Exit"}
-                }
-            };
+            PrintTheTitle();
+            LogicPatterns.FillTheButtons();
+            PrintTheButtons();
         }
 
         public static void PrintTheButtons()
@@ -36,7 +26,7 @@ namespace Fillwords
             for (int i = 0; i < 4; i++)
             {
                 Console.SetCursorPosition(32, k);
-                Console.WriteLine(common[0].buttons[i]);
+                Console.WriteLine(LogicPatterns.common[0].buttons[i]);
                 k += 2;
             }
         }
@@ -49,14 +39,14 @@ namespace Fillwords
                 Console.SetCursorPosition(32, k);
                 if (Program.location == i)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(common[0].buttons[i]);
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine(LogicPatterns.common[0].buttons[i]);
                     Console.ForegroundColor = ConsoleColor.White;
                     k += 2;
                 }
                 else
                 {
-                    Console.WriteLine(common[0].buttons[i]);
+                    Console.WriteLine(LogicPatterns.common[0].buttons[i]);
                     k += 2;
                 }
             }
