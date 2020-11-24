@@ -8,6 +8,7 @@ namespace Fillwords
 
         public static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             Print.PrintTheMenu();
             LogicPatterns.SwitchTheButton();
             LogicPatterns.JumpToTheCurrentButton();
