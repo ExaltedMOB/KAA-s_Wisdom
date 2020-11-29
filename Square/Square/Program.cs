@@ -14,10 +14,8 @@ namespace Square
             var cellHeight = 3;
             var x = 10;
             var y = 3;
-            var position = true;
 
             PrintTheSquare(squareWidth, cellWidth, x, y, cellHeight, squareHeight);
-            PrintTheColoredCell( squareWidth,  cellWidth,  x,  y,  cellHeight,  squareHeight, position);
             Console.ReadKey();
         }
 
@@ -68,16 +66,49 @@ namespace Square
             }
 
             PrintTheLine(squareWidth, cellWidth, "└", "┴", "┘", x, y);
+
+            x = 10;
+            y = 4;
+            SwitchByArrows(x, y, squareWidth, cellWidth, cellHeight, squareHeight);
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        static void SwitchByArrows()
+        static void SwitchByArrows(int x, int y, int squareWidth, int cellWidth, int cellHeight, int squareHeight)
         {
-            
+            var pressedKey = ConsoleKey.Z;
+            Console.SetCursorPosition(x,y);
+
+            pressedKey = PressTheKey();
+
+            while (pressedKey != ConsoleKey.Escape)
+            {
+                switch(pressedKey)
+                {
+                    case ConsoleKey.UpArrow:
+                        PrintTheColoredCell(squareWidth, cellWidth, x, y, cellHeight, squareHeight);
+                        break;
+                    case ConsoleKey.DownArrow:
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        break;
+                    case ConsoleKey.RightArrow:
+                        break;
+                }
+            }
         }
 
-        static void PrintTheColoredCell(int squareWidth, int cellWidth, int x, int y, int cellHeight, int squareHeight, bool position)
+        static void DecideTheCell(int position)
+        {
+
+        }
+
+        static ConsoleKey PressTheKey()
+        {
+            return Console.ReadKey().Key;
+        }
+
+        static void PrintTheColoredCell(int squareWidth, int cellWidth, int x, int y, int cellHeight, int squareHeight)
         {
             PrintTheLine(squareWidth, cellWidth, "┌", "┬", "┐", x, y);
 
@@ -88,7 +119,7 @@ namespace Square
                 for (int j = 0; j < cellHeight; j++)
                 {
                     Console.SetCursorPosition(x, y);
-                    ColorTheSpaces(squareWidth, cellWidth, position);
+                    ColorTheSpaces(squareWidth, cellWidth);
                     y++;
                 }
                 if (i != squareHeight)
@@ -98,21 +129,16 @@ namespace Square
             PrintTheLine(squareWidth, cellWidth, "└", "┴", "┘", x, y);
         }
 
-        static void ColorTheSpaces(int squareWidth, int cellWidth, bool position)
+        static void ColorTheSpaces(int squareWidth, int cellWidth)
         {
             for (int i = 0; i < squareWidth; i++)
             {
                 Console.Write("│");
                 for (int j = 0; j < cellWidth; j++)
                 {
-                    if (position == true)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Magenta;
-                        Console.Write(" ");
-                        Console.BackgroundColor = ConsoleColor.Black;
-                    }
-                    else
-                        Console.Write(" ");
+                    Console.BackgroundColor = ConsoleColor.Magenta;
+                    Console.Write(" ");
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
             Console.Write("│");
