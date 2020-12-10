@@ -19,58 +19,58 @@ namespace Square
         //    Console.ReadKey();
         //}
 
-        static void PrintTheLine(int squareWidth, int cellWidth, string lineStart,string lineInsider, string lineEnd, int x, int y)
-        {
-            Console.SetCursorPosition(x, y);   
+        //static void PrintTheLine(int squareWidth, int cellWidth, string lineStart, string lineInsider, string lineEnd, int x, int y)
+        //{
+        //    Console.SetCursorPosition(x, y);
 
-            Console.Write(lineStart);
+        //    Console.Write(lineStart);
 
-            for (int i = 1; i <= squareWidth; i++)
-            {   
-                for (int j = 0; j < cellWidth; j++)
-                    Console.Write("─");
-                if (i != squareWidth)
-                    Console.Write(lineInsider);
-            }
+        //    for (int i = 1; i <= squareWidth; i++)
+        //    {
+        //        for (int j = 0; j < cellWidth; j++)
+        //            Console.Write("─");
+        //        if (i != squareWidth)
+        //            Console.Write(lineInsider);
+        //    }
 
-            Console.Write(lineEnd);
-        }
+        //    Console.Write(lineEnd);
+        //}
 
-        static void PrintWhiteSpaces(int squareWidth,int cellWidth)
-        {
-            for (int i = 0; i < squareWidth; i++)
-            {
-                Console.Write("│");
-                for (int j = 0; j < cellWidth; j++)
-                    Console.Write(" ");
-            }
-            Console.Write("│");
-        }
+        //static void PrintWhiteSpaces(int squareWidth, int cellWidth)
+        //{
+        //    for (int i = 0; i < squareWidth; i++)
+        //    {
+        //        Console.Write("│");
+        //        for (int j = 0; j < cellWidth; j++)
+        //            Console.Write(" ");
+        //    }
+        //    Console.Write("│");
+        //}
 
-        static void PrintTheSquare(int squareWidth, int cellWidth, int x, int y, int cellHeight, int squareHeight)
-        {
-            PrintTheLine(squareWidth, cellWidth, "┌", "┬", "┐", x, y);
+        //static void PrintTheSquare(int squareWidth, int cellWidth, int x, int y, int cellHeight, int squareHeight)
+        //{
+        //    PrintTheLine(squareWidth, cellWidth, "┌", "┬", "┐", x, y);
 
-            for (int i = 1; i <= squareHeight; i++)
-            { 
-                y++;
+        //    for (int i = 1; i <= squareHeight; i++)
+        //    {
+        //        y++;
 
-                for (int j = 0; j < cellHeight; j ++)
-                {
-                    Console.SetCursorPosition(x, y);
-                    PrintWhiteSpaces(squareWidth, cellWidth);
-                    y++;
-                }
-                if (i != squareHeight)
-                    PrintTheLine(squareWidth, cellWidth, "├", "┼", "┤", x, y);
-            }
+        //        for (int j = 0; j < cellHeight; j++)
+        //        {
+        //            Console.SetCursorPosition(x, y);
+        //            PrintWhiteSpaces(squareWidth, cellWidth);
+        //            y++;
+        //        }
+        //        if (i != squareHeight)
+        //            PrintTheLine(squareWidth, cellWidth, "├", "┼", "┤", x, y);
+        //    }
 
-            PrintTheLine(squareWidth, cellWidth, "└", "┴", "┘", x, y);
+        //    PrintTheLine(squareWidth, cellWidth, "└", "┴", "┘", x, y);
 
-            //x = 10;
-            //y = 4;
-            //SwitchByArrows(x, y, squareWidth, cellWidth, cellHeight, squareHeight);
-        }
+        //    //x = 10;
+        //    //y = 4;
+        //    //SwitchByArrows(x, y, squareWidth, cellWidth, cellHeight, squareHeight);
+        //}
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -150,10 +150,72 @@ namespace Square
             var squareHeight = 8;
             var cellWidth = 8;
             var cellHeight = 3;
+            var i = 0;
+            var j = 0;
 
+            string[,] squareArray = new string[squareHeight * cellHeight, squareWidth * cellWidth];
+            squareArray = BuildTheSquare(squareArray, squareWidth, squareHeight, cellHeight, cellWidth, i, j);
 
+            PrintTheArray(squareArray);
         }
 
+        static string[,] BuildTheBorderLine(string[,] squareArray, int squareWidth, int cellWidth, string lineStart, string lineInsider, string lineEnd, int i, int j)
+        {
+            squareArray[i, 0] = lineStart;
 
+            for (int k = 1; k <= squareWidth; i++)
+            {
+                for (j = 0; j < cellWidth; j++)
+                    squareArray[i, j] = "─";
+                if (k != squareWidth)
+                    squareArray[i, j] = lineInsider;
+            }
+
+            squareArray[i, squareWidth * cellWidth - 1] = lineEnd;
+
+            return squareArray;
+        }
+
+        static string[,] BuildTheLineWithSpaces(string[,] squareArray, int squareWidth, int cellWidth, string lineStart, string lineInsider, string lineEnd, int i, int j)
+        {
+            squareArray[i, 0] = lineStart;
+
+            for (int k = 1; k <= squareWidth; i++)
+            {
+                for (j = 1; j < cellWidth; j++)
+                    squareArray[i, j] = " ";
+                if (k != squareWidth)
+                    squareArray[i, j] = lineInsider;
+            }
+
+            squareArray[i, squareWidth * cellWidth - 1] = lineEnd;
+
+            return squareArray;
+        }
+
+        static string[,] BuildTheSquare(string[,] squareArray, int squareWidth, int squareHeight, int cellHeight, int cellWidth, int i, int j)
+        {
+            BuildTheBorderLine(squareArray, squareWidth, cellWidth, "┌", "┬", "┐", i, j);
+
+            for (int h = 1; h < squareHeight; h++)
+            {
+                for (int z = 0; z < cellHeight; z++)
+                {
+                    BuildTheLineWithSpaces(squareArray, squareWidth, cellWidth, "│", " ", "│", i, j);
+                }
+                if (i != squareHeight)
+                    BuildTheBorderLine(squareArray, squareWidth, cellWidth, "├", "┼", "┤", i, j);
+            }
+
+            BuildTheBorderLine(squareArray, squareWidth, cellWidth, "└", "┴", "┘", i, j);
+
+            return squareArray;
+        }
+
+        static void PrintTheArray(string[,] squareArray)
+        {
+            foreach (string value in squareArray)
+                Console.WriteLine(value);
+        }
     }
 }
