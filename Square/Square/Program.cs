@@ -159,14 +159,14 @@ namespace Square
             PrintTheArray(squareArray);
         }
 
-        static string[,] BuildTheBorderLine(string[,] squareArray, int squareWidth, int cellWidth, string lineStart, string lineInsider, string lineEnd, int i, int j)
+        static string[,] BuildTheLine(string[,] squareArray, int squareWidth, int cellWidth, string lineStart,string lineIncreaser, string lineInsider, string lineEnd, int i, int j)
         {
             squareArray[i, 0] = lineStart;
 
             for (int k = 1; k <= squareWidth; i++)
             {
                 for (j = 0; j < cellWidth; j++)
-                    squareArray[i, j] = "─";
+                    squareArray[i, j] = lineIncreaser;
                 if (k != squareWidth)
                     squareArray[i, j] = lineInsider;
             }
@@ -176,38 +176,38 @@ namespace Square
             return squareArray;
         }
 
-        static string[,] BuildTheLineWithSpaces(string[,] squareArray, int squareWidth, int cellWidth, string lineStart, string lineInsider, string lineEnd, int i, int j)
-        {
-            squareArray[i, 0] = lineStart;
+        //static string[,] BuildTheLineWithSpaces(string[,] squareArray, int squareWidth, int cellWidth, string lineStart, string lineInsider, string lineEnd, int i, int j)
+        //{
+        //    squareArray[i, 0] = lineStart;
 
-            for (int k = 1; k <= squareWidth; i++)
-            {
-                for (j = 1; j < cellWidth; j++)
-                    squareArray[i, j] = " ";
-                if (k != squareWidth)
-                    squareArray[i, j] = lineInsider;
-            }
+        //    for (int k = 1; k <= squareWidth; i++)
+        //    {
+        //        for (j = 1; j < cellWidth; j++)
+        //            squareArray[i, j] = " ";
+        //        if (k != squareWidth)
+        //            squareArray[i, j] = lineInsider;
+        //    }
 
-            squareArray[i, squareWidth * cellWidth - 1] = lineEnd;
+        //    squareArray[i, squareWidth * cellWidth - 1] = lineEnd;
 
-            return squareArray;
-        }
+        //    return squareArray;
+        //}
 
         static string[,] BuildTheSquare(string[,] squareArray, int squareWidth, int squareHeight, int cellHeight, int cellWidth, int i, int j)
         {
-            BuildTheBorderLine(squareArray, squareWidth, cellWidth, "┌", "┬", "┐", i, j);
+            BuildTheLine(squareArray, squareWidth, cellWidth, "┌", "─", "┬", "┐", i, j);
 
             for (int h = 1; h < squareHeight; h++)
             {
                 for (int z = 0; z < cellHeight; z++)
                 {
-                    BuildTheLineWithSpaces(squareArray, squareWidth, cellWidth, "│", " ", "│", i, j);
+                    BuildTheLine(squareArray, squareWidth, cellWidth, "│", " ", "│", "│", i, j);
                 }
                 if (i != squareHeight)
-                    BuildTheBorderLine(squareArray, squareWidth, cellWidth, "├", "┼", "┤", i, j);
+                    BuildTheLine(squareArray, squareWidth, cellWidth, "├", "─", "┼", "┤", i, j);
             }
 
-            BuildTheBorderLine(squareArray, squareWidth, cellWidth, "└", "┴", "┘", i, j);
+            BuildTheLine(squareArray, squareWidth, cellWidth, "└", "─", "┴", "┘", i, j);
 
             return squareArray;
         }

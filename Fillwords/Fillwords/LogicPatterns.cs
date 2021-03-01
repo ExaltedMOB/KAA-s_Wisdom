@@ -25,11 +25,13 @@ namespace Fillwords
         {
             Print.PrintTheHighlightedButton();
 
-            var pressedKey = ConsoleKey.Z;
+            var pressedKey = ConsoleKey.Z; 
 
             while (pressedKey != ConsoleKey.Enter)
             {
                 pressedKey = PressTHeKey();
+
+                Console.Clear();
 
                 if ((pressedKey == ConsoleKey.DownArrow) || (pressedKey == ConsoleKey.S))
                 {
@@ -38,6 +40,7 @@ namespace Fillwords
                         Print.PrintTheTitle();
                         Print.PrintTheHighlightedButton();
                     }
+
                     else
                     {
                         Print.PrintTheTitle();
@@ -52,6 +55,7 @@ namespace Fillwords
                         Print.PrintTheTitle();
                         Print.PrintTheHighlightedButton();
                     }
+
                     else
                     {
                         Print.PrintTheTitle();
