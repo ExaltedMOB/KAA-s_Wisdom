@@ -4,11 +4,10 @@ namespace Fillwords2
 {
     class Program
     {
-        public static ConsoleKey key = ConsoleKey.Delete;
-        public static int locator = 0;
-
         static void Main(string[] args)
         {
+            Printer.SetWindowSize();
+
             Panel[] panels = new Panel[4]{
                 new Panel { buttonTitle = "New Game" },
                 new Panel { buttonTitle = "Resume" },
@@ -16,48 +15,34 @@ namespace Fillwords2
                 new Panel { buttonTitle = "Exit" },
             };
 
-            Printer.SetWindowSize();
+            SetPanelsWidth(panels);
             Printer.PrintTheHeadline();
-            PrintTheMenu(panels);
+            GenerateMenu(panels, Logic.location);
 
-            //Logic.SwitchTheButtons(key, panels);
+            Logic.ChooseTheButton(panels);
         }
 
-        public static void PrintTheMenu(Panel[] panels)
+        public static void GenerateMenu(Panel[] panels, int index)
         {
             for (int i = 0; i < 4; i++)
             {
-                Printer.SetCursorLocation();
-
-                if (locator == i)
+                if (i == index) 
                 {
                     panels[i].PrintHighlightedTitle();
-                    Panel.width += 2;
                 }
 
-                else
-                {
-                    panels[i].PrintTheTitle();
-                    Panel.width += 2;
-                }
+                else panels[i].PrintTheTitle();
             }
         }
 
-        //public static void GenerateMenu(Panel[] panels)
-        //{
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        if (locator != 0)
-        //        {
-        //            panels[locator].PrintEachHighlightedButton();
-        //            Panel.width += 2;
-        //        }
+        public static void SetPanelsWidth(Panel[] panels)
+        {
+            panels[0].width = 5;
 
-        //        panels[i].PrintTheButton();
-        //        Panel.width += 2;
-        //    }
-
-        //    Panel.width = 5;
-        //}
+            for (int i = 1; i < 4; i++)
+            {
+                panels[i].width = panels[i - 1].width + 2;
+            }
+        }
     }
 }

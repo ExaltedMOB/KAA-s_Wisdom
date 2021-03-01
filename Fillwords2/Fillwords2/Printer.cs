@@ -4,14 +4,9 @@ namespace Fillwords2
 {
     class Printer
     {
-        public static void SetCursorLocation()
-        {
-            Panel.height = 32;
-            Panel.width = 5;
-        }
-
         public static void PrintTheHeadline()
         {
+            Console.CursorVisible = false;
             Console.SetCursorPosition(29, 3);
             Console.WriteLine("< < FILLWORDS > >");
         }
