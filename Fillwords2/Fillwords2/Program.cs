@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Fillwords2
 {
@@ -6,43 +7,51 @@ namespace Fillwords2
     {
         static void Main(string[] args)
         {
-            Printer.SetWindowSize();
-
             Panel[] panels = new Panel[4]{
-                new Panel { buttonTitle = "New Game" },
-                new Panel { buttonTitle = "Resume" },
-                new Panel { buttonTitle = "HighScore" },
-                new Panel { buttonTitle = "Exit" },
+                new Panel ( "New Game", 5 ),
+                new Panel ( "Resume", 7 ),
+                new Panel ( "HighScore", 9 ),
+                new Panel ( "Exit", 11 )
             };
 
-            SetPanelsWidth(panels);
+            Level[] levels = new Level[2]{
+                new Level (1,8,8),
+                new Level (2,9,9)
+            };
+
+            var rnd = new Random();
+
+            string[] vocabulary = File.ReadAllLines("Vocabulary.txt");
+
+            Printer.SetWindowSize();
             Printer.PrintTheHeadline();
             GenerateMenu(panels, Logic.location);
-
-            Logic.ChooseTheButton(panels);
+            
+            Logic.ChooseTheButton(panels, levels, rnd);
         }
 
         public static void GenerateMenu(Panel[] panels, int index)
         {
             for (int i = 0; i < 4; i++)
             {
-                if (i == index) 
-                {
-                    panels[i].PrintHighlightedTitle();
-                }
-
+                if (i == index) panels[i].PrintHighlightedTitle(); 
                 else panels[i].PrintTheTitle();
             }
         }
 
-        public static void SetPanelsWidth(Panel[] panels)
+        public static int GenerateRandomIndex(Random rnd, string[] vocabulary)
         {
-            panels[0].width = 5;
+            return rnd.Next(0, vocabulary.Length);
+        }
 
-            for (int i = 1; i < 4; i++)
-            {
-                panels[i].width = panels[i - 1].width + 2;
-            }
+        public static string[] GetRandomWord(string[] words, int index, string[] vocabulary)
+        {
+            string[] letters = new string[vocabulary[index].Length];
+
+            for (int i = 0; i < words[index].Length; i++)
+                letters[i] = $"   {words[index][i]}   ";
+
+            return letters;
         }
     }
 }
