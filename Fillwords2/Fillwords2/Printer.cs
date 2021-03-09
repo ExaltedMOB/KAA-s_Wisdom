@@ -126,5 +126,16 @@ namespace Fillwords2
 
             PrintTheLine(squareWidth, cellWidth, "└", "┴", "┘", x, y);
         }
+
+        public static void PrintTheField(string[,] field)
+        {
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                for (int j = 0; j < field.GetLength(1); j++)
+                    Console.Write(field[i, j] + "\t");
+
+                Console.WriteLine();
+            }
+        }
     }
 }

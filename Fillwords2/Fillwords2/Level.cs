@@ -22,6 +22,8 @@
 
         public void GenerateSquare() => Printer.PrintTheSquare(squareWidth, squareHeight, cellWidth, cellHeight, levelNumber);
 
+        public void DrawField() => Printer.PrintTheField(field);
+
         public static string[,] SetArray (int width, int height)
         {
             return new string[width, height];

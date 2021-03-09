@@ -27,7 +27,7 @@ namespace Fillwords2
             Printer.PrintTheHeadline();
             GenerateMenu(panels, Logic.location);
             
-            Logic.ChooseTheButton(panels, levels, rnd);
+            Logic.ChooseTheButton(panels, levels, rnd, vocabulary);
         }
 
         public static void GenerateMenu(Panel[] panels, int index)
@@ -44,12 +44,12 @@ namespace Fillwords2
             return rnd.Next(0, vocabulary.Length);
         }
 
-        public static string[] GetRandomWord(string[] words, int index, string[] vocabulary)
+        public static string[] GetRandomWord(int index, string[] vocabulary)
         {
             string[] letters = new string[vocabulary[index].Length];
 
-            for (int i = 0; i < words[index].Length; i++)
-                letters[i] = $"   {words[index][i]}   ";
+            for (int i = 0; i < vocabulary[index].Length; i++)
+                letters[i] = $"   {vocabulary[index][i]}   ";
 
             return letters;
         }
