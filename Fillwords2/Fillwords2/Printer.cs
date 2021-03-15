@@ -13,10 +13,13 @@ namespace Fillwords2
             ConsoleKey.Enter
         };
 
-        public static void SetCursor(int x, int y)
-        {
-            Console.SetCursorPosition(x, y);
-        }
+        public static void SetCursor(int x, int y) => Console.SetCursorPosition(x, y);
+
+        public static void ClearScreen() => Console.Clear();
+
+        public static void SetWindow() => Console.SetWindowSize(100, 40);
+
+        public static ConsoleKey PressTheKey() => Console.ReadKey().Key;
 
         public static void PrintTheHeadline()
         {
@@ -24,16 +27,6 @@ namespace Fillwords2
 
             Console.SetCursorPosition(29, 3);
             Console.WriteLine("< < FILLWORDS > >");
-        }
-
-        public static void ClearScreen()
-        {
-            Console.Clear();
-        }
-
-        public static void SetWindowSize()
-        {
-            Console.SetWindowSize(80, 30);
         }
 
         public static void Print(string title, int x, int y)
@@ -47,11 +40,6 @@ namespace Fillwords2
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Print(title, x, y);
             Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public static ConsoleKey PressTheKey()
-        {
-            return Console.ReadKey().Key;
         }
 
         public static void GreetNewPlayer()
@@ -129,6 +117,8 @@ namespace Fillwords2
 
         public static void PrintTheField(string[,] field)
         {
+            SetCursor(12, 4);
+
             for (int i = 0; i < field.GetLength(0); i++)
             {
                 for (int j = 0; j < field.GetLength(1); j++)

@@ -5,6 +5,10 @@ namespace Fillwords2
 {
     class Program
     {
+        public static string[] vocabulary = File.ReadAllLines("Vocabulary.txt");
+        public static Random rnd = new Random();
+        public static readonly int levelsNumber = 10;
+
         static void Main(string[] args)
         {
             Panel[] panels = new Panel[4]{
@@ -14,44 +18,81 @@ namespace Fillwords2
                 new Panel ( "Exit", 11 )
             };
 
-            Level[] levels = new Level[2]{
-                new Level (1,8,8),
-                new Level (2,9,9)
-            };
+            Level[] levels = new Level[levelsNumber];
+            levels = CreateLevels(levels, levelsNumber);
 
-            var rnd = new Random();
-
-            string[] vocabulary = File.ReadAllLines("Vocabulary.txt");
-
-            Printer.SetWindowSize();
+            Printer.SetWindow();
             Printer.PrintTheHeadline();
             GenerateMenu(panels, Logic.location);
-            
+
             Logic.ChooseTheButton(panels, levels, rnd, vocabulary);
+        }
+
+        public static Level[] CreateLevels(Level[] levels, int count)
+        {
+            int width;
+            int heigth;
+            width = heigth = 6;
+
+            for (int i = 0; i < count; i++)
+            {
+                levels[i] = new Level (i, width, heigth);
+                width++;
+                heigth++;
+            }
+            return levels;
         }
 
         public static void GenerateMenu(Panel[] panels, int index)
         {
             for (int i = 0; i < 4; i++)
             {
-                if (i == index) panels[i].PrintHighlightedTitle(); 
+                if (i == index) panels[i].PrintHighlightedTitle();
                 else panels[i].PrintTheTitle();
             }
         }
 
-        public static int GenerateRandomIndex(Random rnd, string[] vocabulary)
+        public static int GenerateRandomIndex() => rnd.Next(0, vocabulary.Length);
+
+        public static string GetRandomWord()
         {
-            return rnd.Next(0, vocabulary.Length);
+            var index = GenerateRandomIndex();
+            return vocabulary[index].Contains("-") ? GetRandomWord() : vocabulary[index];
         }
 
-        public static string[] GetRandomWord(int index, string[] vocabulary)
+        public static string AbortTheGrowth(string word, string line) => line.Remove(line.Length - word.Length);
+
+        public static string CreateLineOfWords(string[,] field)
         {
-            string[] letters = new string[vocabulary[index].Length];
+            string word;
+            string line;
+            string temporary = line = "";
 
-            for (int i = 0; i < vocabulary[index].Length; i++)
-                letters[i] = $"   {vocabulary[index][i]}   ";
+            while ( line.Length != field.Length )
+            {
+                if (line.Length < field.Length - 2)
+                {
+                    word = GetRandomWord();
+                    temporary = word;
+                    line += word;
+                }
+                else if (((line.Length >= field.Length - 2) && (line.Length < field.Length)) || (line.Length > field.Length))
+                    line = AbortTheGrowth(temporary, line);
+            }
+            return line;
+        }
 
-            return letters;
+        public static string[,] FillFieldWithWords(string[,] field, string line)
+        {
+            var k = 0;
+
+            for (int i = 0; i < field.GetLength(0); i++)
+                for (int j = 0; j < field.GetLength(1); j++)
+                {
+                    field[i, j] = line[k].ToString();
+                    k++;
+                }
+            return field;
         }
     }
 }

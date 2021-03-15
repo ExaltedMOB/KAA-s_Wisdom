@@ -7,8 +7,8 @@
         private int squareWidth { get; set; }
         private int squareHeight { get; set; }
 
-        private readonly int cellWidth = 8;
-        private readonly int cellHeight = 3;
+        private static readonly int cellWidth = 4;
+        private static readonly int cellHeight = 1;
 
         public string[,] field;
 
@@ -21,6 +21,10 @@
         }
 
         public void GenerateSquare() => Printer.PrintTheSquare(squareWidth, squareHeight, cellWidth, cellHeight, levelNumber);
+
+        public string GenerateLine() => Program.CreateLineOfWords(field);
+
+        public string[,] FillSquareWithLine() => Program.FillFieldWithWords(field, GenerateLine());
 
         public void DrawField() => Printer.PrintTheField(field);
 
