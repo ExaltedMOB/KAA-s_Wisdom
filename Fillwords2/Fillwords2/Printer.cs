@@ -62,7 +62,13 @@ namespace Fillwords2
             Console.WriteLine($"LEVEL -- {number}");
         }
 
-        public static void PrintTheLine(int sWidth, int cWidth, string lineStart, string lineInsider, string lineEnd, int x, int y)
+        public static void PrintTheLine(int sWidth
+            , int cWidth
+            , string lineStart
+            , string lineInsider
+            , string lineEnd
+            , int x
+            , int y)
         {
             SetCursor(x, y);
 

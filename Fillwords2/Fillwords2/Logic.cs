@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Xml;
+using Fillwords2.Enums;
 
 namespace Fillwords2
 {
     class Logic
     {
+        private Logic() { }
+
         public static int location = 0;
 
-        private static int SwitchTheButtons(Panel[] panels, int locator )
+        private static MenuType SwitchTheButtons(Panel[] panels, int locator )
         {
             var pressedKey = Printer.Keys[4];
 
@@ -29,33 +33,33 @@ namespace Fillwords2
                 else Program.GenerateMenu(panels, locator);
             }
 
-            return locator;
+            return (MenuType) locator;
         }
         
-        public static void ChooseTheButton(Panel[] panels, Level[] levels, Random rnd, string[] vocabulary)
+        public static void ChooseTheButton(Panel[] panels, Level[] levels, string[] vocabulary)
         {
             switch (SwitchTheButtons(panels, location))
             {
-                case 0:
+                case MenuType.NewGame:
                     Printer.GreetNewPlayer();
                     Printer.InputName();
 
                     Printer.ClearScreen();
                     levels[0].GenerateSquare();
 
-                    levels[0].field = levels[0].FillSquareWithLine();
+                    levels[0].Field = levels[0].FillSquareWithLine();
 
                     Console.WriteLine();
                     levels[0].DrawField();
 
                     break;
-                case 1:
+                case MenuType.Resume:
                     Console.WriteLine("NYD_2");
                     break;
-                case 2:
+                case MenuType.HighScore:
                     Console.WriteLine("NYD_3");
                     break;
-                case 3:
+                case MenuType.Exit:
                     Console.WriteLine("NYD_4");
                     break;
             }

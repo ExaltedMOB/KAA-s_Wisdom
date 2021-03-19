@@ -1,34 +1,44 @@
 ﻿namespace Fillwords2
 {
-    class Level
+    internal class Level
     {
-        private int levelNumber { get; set; }
+        private const int CellWidth = 4;
+        private const int CellHeight = 1;
+        private readonly int _levelNumber;
+        private readonly int _squareHeight;
+        private readonly int _squareWidth;
 
-        private int squareWidth { get; set; }
-        private int squareHeight { get; set; }
-
-        private static readonly int cellWidth = 4;
-        private static readonly int cellHeight = 1;
-
-        public string[,] field;
+        public string[,] Field { get; set; }
 
         public Level(int level, int width, int height)
         {
-            levelNumber = level;
-            squareWidth = width;
-            squareHeight = height;
-            field = SetArray(squareWidth, squareHeight);
+            _levelNumber = level;
+            _squareWidth = width;
+            _squareHeight = height;
+            Field = SetArray(_squareWidth, _squareHeight);
         }
 
-        public void GenerateSquare() => Printer.PrintTheSquare(squareWidth, squareHeight, cellWidth, cellHeight, levelNumber);
+        public void GenerateSquare()
+        {
+            Printer.PrintTheSquare(_squareWidth, _squareHeight, CellWidth, CellHeight, _levelNumber);
+        }
 
-        public string GenerateLine() => Program.CreateLineOfWords(field);
+        public string GenerateLine()
+        {
+            return Program.CreateLineOfWords(Field);
+        }
 
-        public string[,] FillSquareWithLine() => Program.FillFieldWithWords(field, GenerateLine());
+        public string[,] FillSquareWithLine()
+        {
+            return Program.FillFieldWithWords(Field, GenerateLine());
+        }
 
-        public void DrawField() => Printer.PrintTheField(field);
+        public void DrawField()
+        {
+            Printer.PrintTheField(Field);
+        }
 
-        public static string[,] SetArray (int width, int height)
+        public string[,] SetArray(int width, int height)
         {
             return new string[width, height];
         }

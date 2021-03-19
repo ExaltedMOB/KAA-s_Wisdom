@@ -5,9 +5,8 @@ namespace Fillwords2
 {
     class Program
     {
-        public static string[] vocabulary = File.ReadAllLines("Vocabulary.txt");
-        public static Random rnd = new Random();
-        public static readonly int levelsNumber = 10;
+        public static string[] Vocabulary = File.ReadAllLines("Vocabulary.txt");
+        public static readonly int LevelsNumber = 10;
 
         static void Main(string[] args)
         {
@@ -18,14 +17,14 @@ namespace Fillwords2
                 new Panel ( "Exit", 11 )
             };
 
-            Level[] levels = new Level[levelsNumber];
-            levels = CreateLevels(levels, levelsNumber);
-
+            Level[] levels = new Level[LevelsNumber];
+            levels = CreateLevels(levels, LevelsNumber);
+            
             Printer.SetWindow();
             Printer.PrintTheHeadline();
             GenerateMenu(panels, Logic.location);
 
-            Logic.ChooseTheButton(panels, levels, rnd, vocabulary);
+            Logic.ChooseTheButton(panels, levels, Vocabulary);
         }
 
         public static Level[] CreateLevels(Level[] levels, int count)
@@ -52,12 +51,16 @@ namespace Fillwords2
             }
         }
 
-        public static int GenerateRandomIndex() => rnd.Next(0, vocabulary.Length);
+        public static int GenerateRandomIndex()
+        {
+            var rnd = new Random();
+            return rnd.Next(0, Vocabulary.Length);
+        }
 
         public static string GetRandomWord()
         {
             var index = GenerateRandomIndex();
-            return vocabulary[index].Contains("-") ? GetRandomWord() : vocabulary[index];
+            return Vocabulary[index].Contains("-") ? GetRandomWord() : Vocabulary[index];
         }
 
         public static string AbortTheGrowth(string word, string line) => line.Remove(line.Length - word.Length);
